@@ -1,113 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Daily Cash Counter</title>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
-    h2 { color: #333; }
-    input { width: 60px; }
-    .total { font-weight: bold; margin-top: 10px; }
-  </style>
+<meta charset="UTF-8">
+<title>Daily Cash Counter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("cOIriPHdWxpuO5yIq");
+})();
+</script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 {
+  text-align: center;
+  color: #333;
+}
+h2 {
+  margin-top: 30px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+.section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+label {
+  font-size: 14px;
+}
+input {
+  padding: 8px;
+  width: 100%;
+}
+.full {
+  grid-column: span 5;
+}
+button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  background: #0056b3;
+}
+.total-box {
+  background: #f1f1f1;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: gray;
+}
+</style>
 </head>
 
 <body>
+<div class="container">
 
-<h1>Daily Cash Closing</h1>
+<h1>🧾 Daily Cash Closing</h1>
 
-Employee Name:
-<input type="text" id="empName"><br><br>
+<div class="section full">
+  <label>Employee Name</label>
+  <input id="empName" placeholder="Enter your name">
+</div>
 
-<!-- ================= DEPOSIT ================= -->
-<section>
-  <h2>Deposit (Notes Only)</h2>
+<!-- DEPOSIT -->
+<h2>💰 Deposit (Notes Only)</h2>
+<div class="section">
+<input id="d100" type="number" placeholder="$100">
+<input id="d50" type="number" placeholder="$50">
+<input id="d20" type="number" placeholder="$20">
+<input id="d10" type="number" placeholder="$10">
+<input id="d5" type="number" placeholder="$5">
+</div>
 
-  $100 <input type="number" id="d100" value="0"><br>
-  $50 <input type="number" id="d50" value="0"><br>
-  $20 <input type="number" id="d20" value="0"><br>
-  $10 <input type="number" id="d10" value="0"><br>
-  $5 <input type="number" id="d5" value="0"><br>
+<!-- TILL -->
+<h2>🧮 Till Cash</h2>
+<div class="section">
+<input id="t100" type="number" placeholder="$100">
+<input id="t50" type="number" placeholder="$50">
+<input id="t20" type="number" placeholder="$20">
+<input id="t10" type="number" placeholder="$10">
+<input id="t5" type="number" placeholder="$5">
+<input id="t2" type="number" placeholder="$2">
+<input id="t1" type="number" placeholder="$1">
+<input id="t025" type="number" placeholder="25¢">
+<input id="t010" type="number" placeholder="10¢">
+<input id="t005" type="number" placeholder="5¢">
+</div>
 
-  <div class="total" id="depositTotal">Deposit Total: $0.00</div>
-</section>
+<!-- ROLLS -->
+<h2>🪙 Coin Rolls</h2>
+<div class="section">
+<input id="r2" type="number" placeholder="$2 roll">
+<input id="r1" type="number" placeholder="$1 roll">
+<input id="r025" type="number" placeholder="25¢ roll">
+<input id="r010" type="number" placeholder="10¢ roll">
+<input id="r005" type="number" placeholder="5¢ roll">
+</div>
 
-<!-- ================= TILL ================= -->
-<section>
-  <h2>Till (Loose Cash)</h2>
+<button onclick="calculate()">📧 Submit & Send Email</button>
 
-  $100 <input type="number" id="t100" value="0"><br>
-  $50 <input type="number" id="t50" value="0"><br>
-  $20 <input type="number" id="t20" value="0"><br>
-  $10 <input type="number" id="t10" value="0"><br>
-  $5 <input type="number" id="t5" value="0"><br>
-  $2 <input type="number" id="t2" value="0"><br>
-  $1 <input type="number" id="t1" value="0"><br>
-  $0.25 <input type="number" id="t025" value="0"><br>
-  $0.10 <input type="number" id="t010" value="0"><br>
-  $0.05 <input type="number" id="t005" value="0"><br>
+<div id="result" class="total-box"></div>
 
-  <div class="total" id="tillTotal">Till Total: $0.00</div>
-</section>
+<footer>
+Cash Counter System • Powered by EmailJS
+</footer>
 
-<!-- ================= COIN ROLLS ================= -->
-<section>
-  <h2>Coin Rolls (Drawer)</h2>
-
-  $2 Roll (25 coins = $50)
-  <input type="number" id="r2" value="0"><br>
-
-  $1 Roll (25 coins = $25)
-  <input type="number" id="r1" value="0"><br>
-
-  $0.25 Roll (40 coins = $10)
-  <input type="number" id="r025" value="0"><br>
-
-  $0.10 Roll (50 coins = $5)
-  <input type="number" id="r010" value="0"><br>
-
-  $0.05 Roll (40 coins = $2)
-  <input type="number" id="r005" value="0"><br>
-
-  <div class="total" id="rollTotal">Roll Total: $0.00</div>
-</section>
-
-<button onclick="calculate()">Calculate Total</button>
-
-<h2 id="grandTotal">Grand Total: $0.00</h2>
+</div>
 
 <script>
+function val(id){ return Number(document.getElementById(id).value || 0); }
+
 function calculate() {
+  let deposit = val("d100")*100 + val("d50")*50 + val("d20")*20 + val("d10")*10 + val("d5")*5;
 
-  let deposit =
-    d100.value*100 + d50.value*50 + d20.value*20 +
-    d10.value*10 + d5.value*5;
+  let till = val("t100")*100 + val("t50")*50 + val("t20")*20 + val("t10")*10 + val("t5")*5 +
+             val("t2")*2 + val("t1")*1 + val("t025")*0.25 + val("t010")*0.10 + val("t005")*0.05;
 
-  let till =
-    t100.value*100 + t50.value*50 + t20.value*20 +
-    t10.value*10 + t5.value*5 + t2.value*2 +
-    t1.value*1 + t025.value*0.25 +
-    t010.value*0.10 + t005.value*0.05;
+  let rolls = val("r2")*50 + val("r1")*25 + val("r025")*10 + val("r010")*5 + val("r005")*2;
 
-  let rolls =
-    r2.value*50 + r1.value*25 +
-    r025.value*10 + r010.value*5 +
-    r005.value*2;
-
-  document.getElementById("depositTotal").innerText =
-    "Deposit Total: $" + deposit.toFixed(2);
-
-  document.getElementById("tillTotal").innerText =
-    "Till Total: $" + till.toFixed(2);
-
-  document.getElementById("rollTotal").innerText =
-    "Roll Total: $" + rolls.toFixed(2);
-
-  let grand = deposit + till + rolls;
-
-  document.getElementById("grandTotal").innerText =
-    "Grand Total: $" + grand.toFixed(2);
-}
-</script>
-
-</body>
-</html>
+  let grand

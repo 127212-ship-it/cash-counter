@@ -1,152 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Daily Cash Counter</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Happy Birthday My Pookie </title>
 
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-(function(){
-  emailjs.init("cOIriPHdWxpuO5yIq");
-})();
-</script>
+  <link rel="stylesheet" href="style.css">
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 20px;
-}
-.container {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-h1 {
-  text-align: center;
-  color: #333;
-}
-h2 {
-  margin-top: 30px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 5px;
-}
-.section {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-}
-label {
-  font-size: 14px;
-}
-input {
-  padding: 8px;
-  width: 100%;
-}
-.full {
-  grid-column: span 5;
-}
-button {
-  margin-top: 30px;
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-button:hover {
-  background: #0056b3;
-}
-.total-box {
-  background: #f1f1f1;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-}
-footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 12px;
-  color: gray;
-}
-</style>
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-
 <body>
-<div class="container">
 
-<h1>🧾 Daily Cash Closing</h1>
+<button id="darkModeToggle">🌙</button>
 
-<div class="section full">
-  <label>Employee Name</label>
-  <input id="empName" placeholder="Enter your name">
-</div>
+<!-- 🎉 HERO SECTION -->
+<section class="hero">
+  <h1>🎂 Happy Birthday  <span class="name">My Girl</span> 🎂</h1>
+  <h2 id="typing"></h2>
+  <button id="musicBtn">🎶 Play Music</button>
+</section>
 
-<!-- DEPOSIT -->
-<h2>💰 Deposit (Notes Only)</h2>
-<div class="section">
-<input id="d100" type="number" placeholder="$100">
-<input id="d50" type="number" placeholder="$50">
-<input id="d20" type="number" placeholder="$20">
-<input id="d10" type="number" placeholder="$10">
-<input id="d5" type="number" placeholder="$5">
-</div>
+<!-- 💕 FLIP CARDS -->
+<section class="flip-section">
+  <h2>Little Reasons Why I Care For You and i want you Baby</h2>
 
-<!-- TILL -->
-<h2>🧮 Till Cash</h2>
-<div class="section">
-<input id="t100" type="number" placeholder="$100">
-<input id="t50" type="number" placeholder="$50">
-<input id="t20" type="number" placeholder="$20">
-<input id="t10" type="number" placeholder="$10">
-<input id="t5" type="number" placeholder="$5">
-<input id="t2" type="number" placeholder="$2">
-<input id="t1" type="number" placeholder="$1">
-<input id="t025" type="number" placeholder="25¢">
-<input id="t010" type="number" placeholder="10¢">
-<input id="t005" type="number" placeholder="5¢">
-</div>
+  <div class="flip-grid">
 
-<!-- ROLLS -->
-<h2>🪙 Coin Rolls</h2>
-<div class="section">
-<input id="r2" type="number" placeholder="$2 roll">
-<input id="r1" type="number" placeholder="$1 roll">
-<input id="r025" type="number" placeholder="25¢ roll">
-<input id="r010" type="number" placeholder="10¢ roll">
-<input id="r005" type="number" placeholder="5¢ roll">
-</div>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #1</div>
+        <div class="flip-back">
+          You feel like home to me. No matter how messy my day is, talking to you makes everything calmer.
+        </div>
+      </div>
+    </div>
 
-<button onclick="calculate()">📧 Submit & Send Email</button>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #2</div>
+        <div class="flip-back">
+          You understand me in ways I don’t even know how to explain. That’s rare.
+        </div>
+      </div>
+    </div>
 
-<div id="result" class="total-box"></div>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #3</div>
+        <div class="flip-back">
+          You support me even when I doubt myself. You believe in me.
+        </div>
+      </div>
+    </div>
 
-<footer>
-Cash Counter System • Powered by EmailJS
-</footer>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #4</div>
+        <div class="flip-back">
+          You’re strong, kind, and soft at the same time. That’s powerful.
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #5</div>
+        <div class="flip-back">
+          You make ordinary moments feel special. Even silence feels good with you.
+        </div>
+      </div>
+    </div>
 
-<script>
-function val(id){ return Number(document.getElementById(id).value || 0); }
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">💗 Reason #6</div>
+        <div class="flip-back">
+          Spending time with you showed me what I've been missing in my life.
+        </div>
+      </div>
+    </div>
 
-function calculate() {
-  let deposit = val("d100")*100 + val("d50")*50 + val("d20")*20 + val("d10")*10 + val("d5")*5;
+  </div>
+</section>
 
-  let till = val("t100")*100 + val("t50")*50 + val("t20")*20 + val("t10")*10 + val("t5")*5 +
-             val("t2")*2 + val("t1")*1 + val("t025")*0.25 + val("t010")*0.10 + val("t005")*0.05;
+<!-- 😂 FUNNY SECTION -->
+<section class="text-section">
+  <h2>Things You Do That I Secretly Love 😌</h2>
+  <p>
+    You act tough but you’re soft.<br>
+    You get annoyed but still care.<br>
+    You say “it’s fine” (it’s not).<br>
+    You steal my attention, my time, and my _____(Girl).<br><br>
+    I tease you because I Care about you.
+  </p>
+</section>
 
-  let rolls = val("r2")*50 + val("r1")*25 + val("r025")*10 + val("r010")*5 + val("r005")*2;
+<!-- 💌 EMOTIONAL LETTER -->
+<section class="text-section">
+  <h2>From Me to You 💌</h2>
+  <p>
+    Being with you changed the way I see things.<br>
+    You make me want to be better, calmer, and stronger.<br><br>
+    Thank you for choosing me, trusting me, and loving me.<br>
+    I don’t take us for granted. Ever.
+  </p>
+</section>
 
-  let grand
+
+<!-- 🎁 FINAL SURPRISE -->
+<section class="final">
+  <button onclick="finalSurprise()">❤️ One Last Thing</button>
+</section>
+
+<audio id="bgMusic" loop>
+  <source src="By My Side.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
